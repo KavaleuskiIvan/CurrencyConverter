@@ -16,10 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let viewController = CurrencyTableViewController()
-        let navViewController = UINavigationController(rootViewController: viewController)
-        window.rootViewController = navViewController
-        
+//        let viewController = CurrencyTableViewController()
+        let viewController = ContainerViewController()
+//        let navViewController = UINavigationController(rootViewController: viewController)
+//        window.rootViewController = navViewController
+        window.rootViewController = viewController
         self.window = window
         window.makeKeyAndVisible()
     }

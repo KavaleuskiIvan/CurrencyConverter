@@ -18,6 +18,9 @@
 		C838EAF6283D6D560023728A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C838EAF5283D6D560023728A /* SceneDelegate.swift */; };
 		C838EAFD283D6D560023728A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C838EAFC283D6D560023728A /* Assets.xcassets */; };
 		C838EB00283D6D560023728A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C838EAFE283D6D560023728A /* LaunchScreen.storyboard */; };
+		C8E8F3EA284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3E9284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift */; };
+		C8E8F3EC284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */; };
+		C8E8F3EE284C0D2D006AD7E5 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		C838EAFC283D6D560023728A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C838EAFF283D6D560023728A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C838EB01283D6D560023728A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8E8F3E9284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCurrencyTableViewController.swift; sourceTree = "<group>"; };
+		C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,8 @@
 		C8E8F3E5284B5853006AD7E5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */,
+				C8E8F3E9284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift */,
 				C817F164283D6E4400201297 /* CurrencyTableViewController.swift */,
 				C817F16A284607E500201297 /* SelectingCurrencyViewController.swift */,
 			);
@@ -115,6 +123,7 @@
 			children = (
 				C817F166283FE43100201297 /* CurrencyTableViewCell.swift */,
 				C817F17028460ABC00201297 /* SelectingCurrencyTableViewCell.swift */,
+				C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -252,10 +261,13 @@
 				C817F169283FFB0800201297 /* CurrencyModel.swift in Sources */,
 				C817F167283FE43100201297 /* CurrencyTableViewCell.swift in Sources */,
 				C817F165283D6E4400201297 /* CurrencyTableViewController.swift in Sources */,
+				C8E8F3EE284C0D2D006AD7E5 /* ContainerViewController.swift in Sources */,
+				C8E8F3EC284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift in Sources */,
 				C817F17128460ABC00201297 /* SelectingCurrencyTableViewCell.swift in Sources */,
 				C838EAF4283D6D560023728A /* AppDelegate.swift in Sources */,
 				C817F16F284609D400201297 /* GettingCurrency.swift in Sources */,
 				C817F16B284607E500201297 /* SelectingCurrencyViewController.swift in Sources */,
+				C8E8F3EA284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift in Sources */,
 				C838EAF6283D6D560023728A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

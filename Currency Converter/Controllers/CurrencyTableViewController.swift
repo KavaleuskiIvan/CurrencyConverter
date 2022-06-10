@@ -8,22 +8,31 @@
 import UIKit
 import Alamofire
 
+protocol CurrencyTableViewControllerDelegate: AnyObject {
+    func openBaseCurrencyTableVC()
+    func openSelectingCurrencyTableVC()
+}
+extension CurrencyTableViewControllerDelegate {
+    func openBaseCurrencyTableVC() {}
+    func openSelectingCurrencyTableVC() {}
+}
+
 class CurrencyTableViewController: UIViewController {
     
     let tableView = UITableView()
     let userDefaults = UserDefaults()
     var favouriteCurrency: [CurrencyValue] = []
+    var baseCurrencyString: String?
+    weak var delegate: CurrencyTableViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addSubviews()
         setupTableView()
-        tableView.dataSource = self
-        tableView.delegate = self
+        setupNavigationItemTitle()
         
-//        setupBaseCurrencyButton()
-        setupFavouriteCurrencyButton()
+        setupRightSwipe()
+        setupLeftSwipe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,35 +40,53 @@ class CurrencyTableViewController: UIViewController {
         gettingCurrency()
     }
     
+    func setupTableView() {
+        view.addSubview(tableView)
+        tableView.frame = view.bounds
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(CurrencyTableViewCell.self, forCellReuseIdentifier: CurrencyTableViewCell.reuseID)
+    }
+    
+    func setupNavigationItemTitle() {
+        baseCurrencyString = userDefaults.string(forKey: "baseCurrency")
+        navigationItem.title = baseCurrencyString
+    }
+    
+    func setupRightSwipe() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeRightFunc(gesture:)))
+        swipeRight.direction = .right
+        
+        self.tableView.addGestureRecognizer(swipeRight)
+    }
+    @objc func swipeRightFunc(gesture: UIGestureRecognizer) {
+        delegate?.openBaseCurrencyTableVC()
+    }
+    
+    func setupLeftSwipe() {
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeftFunc(gesture:)))
+        swipeLeft.direction = .left
+        
+        self.tableView.addGestureRecognizer(swipeLeft)
+    }
+    @objc func swipeLeftFunc(gesture: UIGestureRecognizer) {
+        delegate?.openSelectingCurrencyTableVC()
+    }
+    
     func gettingCurrency() {
         let favouriteCurrencyCode = self.userDefaults.array(forKey: "favouriteCurrency") as? [String] ?? []
-        GettingCurrency.shared.getUsers(favouriteCurrencyCode: favouriteCurrencyCode) { result in
+        baseCurrencyString = userDefaults.string(forKey: "baseCurrency")
+        GettingCurrency.shared.getUsers(favouriteCurrencyCode: favouriteCurrencyCode, baseCurrency: baseCurrencyString) { [weak self] (result) in
             switch result {
             case .success(let curr):
                 guard let currFirst = curr.first else { return }
-                self.favouriteCurrency = Array(currFirst.data.values)
-                self.favouriteCurrency.sort(by: {$0.code < $1.code})
-                self.tableView.reloadData()
+                self?.favouriteCurrency = Array(currFirst.data.values)
+                self?.favouriteCurrency.sort(by: {$0.code < $1.code})
+                self?.tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
         }
-    }
-    /*
-    func setupBaseCurrencyButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(baseCurrencyButtonPressed))
-        self.navigationItem.leftBarButtonItem = button
-    }
-    @objc func baseCurrencyButtonPressed() {
-    }*/
-    
-    func setupFavouriteCurrencyButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(favouriteCurrencyButtonPressed))
-        self.navigationItem.rightBarButtonItem = button
-    }
-    @objc func favouriteCurrencyButtonPressed() {
-        let selectingCurrencyVC = SelectingCurrencyViewController()
-        navigationController?.pushViewController(selectingCurrencyVC, animated: true)
     }
 }
 
@@ -75,18 +102,5 @@ extension CurrencyTableViewController: UITableViewDelegate, UITableViewDataSourc
         cell.textLabel?.text = favouriteCurrency[indexPath.row].code
         cell.detailTextLabel?.text =  String(favouriteCurrency[indexPath.row].value)
         return cell
-    }
-}
-
-private extension CurrencyTableViewController {
-    func addSubviews() {
-        view.addSubview(tableView)
-    }
-    func setupTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

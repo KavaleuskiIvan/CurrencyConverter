@@ -14,23 +14,24 @@ class GettingCurrency {
     
     private init() {}
     
-    var url = "https://api.currencyapi.com/v3/latest?apikey=K2t4O0J7n7VbzIKV3ZRoMLLh1sDgyC4HLCI4Fjqa"
-    //https://api.currencyapi.com/v3/latest?apikey=K2t4O0J7n7VbzIKV3ZRoMLLh1sDgyC4HLCI4Fjqa&currencies=EUR%2CUSD%2CCAD&base_currency=AED
+    var url = "https://api.currencyapi.com/v3/latest?apikey=oJK9Hpugr5WQEobsLVpQBmJRDEsN3rnVj1O1yJ61&currencies="
     
-    func getUsers(favouriteCurrencyCode:[String], completion: @escaping (Result<[Currency], RequestError>) -> Void) {
+    func getUsers(favouriteCurrencyCode:[String], baseCurrency: String?, completion: @escaping (Result<[Currency], RequestError>) -> Void) {
         if favouriteCurrencyCode.isEmpty {
             guard URL(string: url) != nil else {
                 completion(.failure(.invalidUrl))
                 return
             }
         } else {
-            url += "&currencies="
             for currency in favouriteCurrencyCode {
                 url += currency
                 if !(favouriteCurrencyCode.last == currency) {
                     url += "%2C"
                 }
             }
+        }
+        if baseCurrency != nil {
+            url += "&base_currency=" + (baseCurrency ?? "USD")
         }
         AF.request(url).response { response in
             switch response.result {
@@ -40,12 +41,14 @@ class GettingCurrency {
                     completion(.success([newCurrency]))
                 } catch {
                     print("Error decoding users: \(error)")
+                    completion(.failure(.errorDecode))
                 }
             case .failure(let error):
+                completion(.failure(.failedRequest))
                 print(error)
             }
         }
-        url = "https://api.currencyapi.com/v3/latest?apikey=K2t4O0J7n7VbzIKV3ZRoMLLh1sDgyC4HLCI4Fjqa"
+        url = "https://api.currencyapi.com/v3/latest?apikey=oJK9Hpugr5WQEobsLVpQBmJRDEsN3rnVj1O1yJ61&currencies="
     }
     
     enum RequestError: Error {
