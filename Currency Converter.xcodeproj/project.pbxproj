@@ -21,6 +21,7 @@
 		C8E8F3EA284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3E9284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift */; };
 		C8E8F3EC284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */; };
 		C8E8F3EE284C0D2D006AD7E5 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */; };
+		C8E8F3F0285C76A4006AD7E5 /* CellsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3EF285C76A4006AD7E5 /* CellsProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		C8E8F3E9284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCurrencyTableViewController.swift; sourceTree = "<group>"; };
 		C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		C8E8F3EF285C76A4006AD7E5 /* CellsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				C817F166283FE43100201297 /* CurrencyTableViewCell.swift */,
+				C8E8F3EF285C76A4006AD7E5 /* CellsProtocol.swift */,
 				C817F17028460ABC00201297 /* SelectingCurrencyTableViewCell.swift */,
 				C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */,
 			);
@@ -261,6 +264,7 @@
 				C817F169283FFB0800201297 /* CurrencyModel.swift in Sources */,
 				C817F167283FE43100201297 /* CurrencyTableViewCell.swift in Sources */,
 				C817F165283D6E4400201297 /* CurrencyTableViewController.swift in Sources */,
+				C8E8F3F0285C76A4006AD7E5 /* CellsProtocol.swift in Sources */,
 				C8E8F3EE284C0D2D006AD7E5 /* ContainerViewController.swift in Sources */,
 				C8E8F3EC284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift in Sources */,
 				C817F17128460ABC00201297 /* SelectingCurrencyTableViewCell.swift in Sources */,

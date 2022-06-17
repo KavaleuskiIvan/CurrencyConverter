@@ -14,7 +14,7 @@ class GettingCurrency {
     
     private init() {}
     
-    var url = "https://api.currencyapi.com/v3/latest?apikey=oJK9Hpugr5WQEobsLVpQBmJRDEsN3rnVj1O1yJ61&currencies="
+    var url = "https://api.currencyapi.com/v3/latest?apikey=0rF9e3riDY3M7IAf4xJ7bqkq20WtQBfE1rmgEEEt&currencies="
     
     func getUsers(favouriteCurrencyCode:[String], baseCurrency: String?, completion: @escaping (Result<[Currency], RequestError>) -> Void) {
         if favouriteCurrencyCode.isEmpty {
@@ -23,6 +23,10 @@ class GettingCurrency {
                 return
             }
         } else {
+            guard URL(string: url) != nil else {
+                completion(.failure(.invalidUrl))
+                return
+            }
             for currency in favouriteCurrencyCode {
                 url += currency
                 if !(favouriteCurrencyCode.last == currency) {
@@ -31,7 +35,7 @@ class GettingCurrency {
             }
         }
         if baseCurrency != nil {
-            url += "&base_currency=" + (baseCurrency ?? "USD")
+            url += "&base_currency=" + baseCurrency!
         }
         AF.request(url).response { response in
             switch response.result {
@@ -48,7 +52,7 @@ class GettingCurrency {
                 print(error)
             }
         }
-        url = "https://api.currencyapi.com/v3/latest?apikey=oJK9Hpugr5WQEobsLVpQBmJRDEsN3rnVj1O1yJ61&currencies="
+        url = "https://api.currencyapi.com/v3/latest?apikey=0rF9e3riDY3M7IAf4xJ7bqkq20WtQBfE1rmgEEEt&currencies="
     }
     
     enum RequestError: Error {

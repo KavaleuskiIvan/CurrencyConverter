@@ -45,7 +45,7 @@ class CurrencyTableViewController: UIViewController {
         tableView.frame = view.bounds
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(CurrencyTableViewCell.self, forCellReuseIdentifier: CurrencyTableViewCell.reuseID)
+        tableView.register(CurrencyTableViewCell.self, forCellReuseIdentifier: CurrencyTableViewCell.reuseIdentifier)
     }
     
     func setupNavigationItemTitle() {
@@ -97,7 +97,7 @@ extension CurrencyTableViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: CurrencyTableViewCell.reuseID)
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: CurrencyTableViewCell.reuseIdentifier)
         cell.selectionStyle = .none
         cell.textLabel?.text = favouriteCurrency[indexPath.row].code
         cell.detailTextLabel?.text =  String(favouriteCurrency[indexPath.row].value)

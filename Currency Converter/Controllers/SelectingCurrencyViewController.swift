@@ -13,10 +13,13 @@ protocol SelectingCurrencyViewControllerDelegate: AnyObject {
 
 class SelectingCurrencyViewController: UIViewController {
     let userDefaults = UserDefaults()
+    let searchBar = UISearchBar()
     let tableView = UITableView()
     
+    var currencyInformationSB: [CurrencyValue] = []
     var currencyInformation: [CurrencyValue] = []
     var favouriteCurrency: [CurrencyValue] = []
+    var baseCurrencyString: String? = ""
     
     weak var delegate: SelectingCurrencyViewControllerDelegate?
     
@@ -24,6 +27,9 @@ class SelectingCurrencyViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationItem.title = "Favourite currency"
+        
+        setupSearchBar()
+        
         setupTableView()
         
         gettingCurrency()
@@ -41,33 +47,46 @@ class SelectingCurrencyViewController: UIViewController {
         delegate?.closeSelectingCurrencyVC()
     }
     
+    func setupSearchBar() {
+        view.addSubview(searchBar)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        searchBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: view.frame.width/5).isActive = true
+        searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        searchBar.heightAnchor.constraint(equalToConstant: view.frame.height/15).isActive = true
+        searchBar.delegate = self
+    }
+    
     func setupTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: view.frame.width/5).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SelectingCurrencyTableViewCell.self, forCellReuseIdentifier: SelectingCurrencyTableViewCell.reuseID)
+        tableView.register(SelectingCurrencyTableViewCell.self, forCellReuseIdentifier: SelectingCurrencyTableViewCell.reuseIdentifier)
     }
     
     func gettingCurrency() {
-        GettingCurrency.shared.getUsers(favouriteCurrencyCode: [], baseCurrency: nil) { [weak self] (result) in
+        baseCurrencyString = userDefaults.string(forKey: "baseCurrency")
+        GettingCurrency.shared.getUsers(favouriteCurrencyCode: [], baseCurrency: baseCurrencyString) { [weak self] (result) in
             switch result {
             case .success(let curr):
                 guard let currFirst = curr.first else { return }
-                self?.currencyInformation = Array(currFirst.data.values)
-                self?.currencyInformation.sort(by: {$0.code < $1.code})
-                let favouriteCurrencyCode = self?.userDefaults.array(forKey: "favouriteCurrency") as? [String] ?? []
+                guard let self = self else { return }
+                self.currencyInformation = Array(currFirst.data.values)
+                self.currencyInformation.sort(by: {$0.code < $1.code})
+                let favouriteCurrencyCode = self.userDefaults.array(forKey: "favouriteCurrency") as? [String] ?? []
                 for curr in favouriteCurrencyCode {
-                    let favCurr = self?.currencyInformation.first(where: {$0.code == curr})
+                    let favCurr = self.currencyInformation.first(where: {$0.code == curr})
                     if favCurr != nil {
-                        self?.favouriteCurrency.append(favCurr!)
+                        self.favouriteCurrency.append(favCurr!)
                     }
                 }
-                self?.tableView.reloadData()
+                self.currencyInformationSB = self.currencyInformation
+                self.tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
@@ -95,12 +114,12 @@ extension SelectingCurrencyViewController: UITableViewDataSource, UITableViewDel
         return sectionName[section]
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sections = [favouriteCurrency,currencyInformation]
+        let sections = [favouriteCurrency,currencyInformationSB]
         return sections[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: SelectingCurrencyTableViewCell.reuseID)
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: SelectingCurrencyTableViewCell.reuseIdentifier)
         cell.selectionStyle = .none
         switch indexPath.section {
         case 0:
@@ -117,12 +136,12 @@ extension SelectingCurrencyViewController: UITableViewDataSource, UITableViewDel
             return cell
         default:
             for curr in favouriteCurrency {
-                if curr.code == currencyInformation[indexPath.row].code {
+                if curr.code == currencyInformationSB[indexPath.row].code {
                     cell.accessoryType = .checkmark
                 }
             }
-            cell.textLabel?.text = currencyInformation[indexPath.row].code
-            cell.detailTextLabel?.text = String(currencyInformation[indexPath.row].value)
+            cell.textLabel?.text = currencyInformationSB[indexPath.row].code
+            cell.detailTextLabel?.text = String(currencyInformationSB[indexPath.row].value)
             return cell
         }
     }
@@ -140,7 +159,7 @@ extension SelectingCurrencyViewController: UITableViewDataSource, UITableViewDel
                 }
             default:
                 let index = favouriteCurrency.firstIndex { value in
-                    value.code == currencyInformation[indexPath.row].code
+                    value.code == currencyInformationSB[indexPath.row].code
                 }
                 if let index = index {
                     favouriteCurrency.remove(at: index)
@@ -149,9 +168,27 @@ extension SelectingCurrencyViewController: UITableViewDataSource, UITableViewDel
             saveFavouriteCurrency()
         } else {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-            favouriteCurrency.append(currencyInformation[indexPath.row])
+            favouriteCurrency.append(currencyInformationSB[indexPath.row])
             self.favouriteCurrency.sort(by: {$0.code < $1.code})
             saveFavouriteCurrency()
         }
+    }
+}
+
+extension SelectingCurrencyViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        currencyInformationSB = []
+        
+        if searchText == "" {
+            currencyInformationSB = currencyInformation
+        }
+        
+        for word in currencyInformation {
+            if word.code.uppercased().contains(searchText.uppercased()) {
+                currencyInformationSB.append(word)
+            }
+        }
+        tableView.reloadData()
     }
 }

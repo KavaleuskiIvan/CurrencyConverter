@@ -7,9 +7,9 @@
 
 import UIKit
 
+extension CurrencyTableViewCell: ReusableView { }
+
 class CurrencyTableViewCell: UITableViewCell {
-    
-    static let reuseID = "CurrencyTableViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
