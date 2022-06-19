@@ -22,6 +22,8 @@
 		C8E8F3EC284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */; };
 		C8E8F3EE284C0D2D006AD7E5 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */; };
 		C8E8F3F0285C76A4006AD7E5 /* CellsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3EF285C76A4006AD7E5 /* CellsProtocol.swift */; };
+		C8E8F3F4285DBE4E006AD7E5 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3F3285DBE4E006AD7E5 /* MainTabBarViewController.swift */; };
+		C8E8F3F8285F053D006AD7E5 /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E8F3F7285F053D006AD7E5 /* ConverterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		C8E8F3EF285C76A4006AD7E5 /* CellsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsProtocol.swift; sourceTree = "<group>"; };
+		C8E8F3F3285DBE4E006AD7E5 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		C8E8F3F7285F053D006AD7E5 /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,10 +116,9 @@
 		C8E8F3E5284B5853006AD7E5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */,
-				C8E8F3E9284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift */,
-				C817F164283D6E4400201297 /* CurrencyTableViewController.swift */,
-				C817F16A284607E500201297 /* SelectingCurrencyViewController.swift */,
+				C8E8F3F3285DBE4E006AD7E5 /* MainTabBarViewController.swift */,
+				C8E8F3F9285F0559006AD7E5 /* Observing Controllers */,
+				C8E8F3FA285F0575006AD7E5 /* Converting Controllers */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -123,10 +126,8 @@
 		C8E8F3E6284B585F006AD7E5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				C817F166283FE43100201297 /* CurrencyTableViewCell.swift */,
 				C8E8F3EF285C76A4006AD7E5 /* CellsProtocol.swift */,
-				C817F17028460ABC00201297 /* SelectingCurrencyTableViewCell.swift */,
-				C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */,
+				C8E8F3FB285F058F006AD7E5 /* Observing Cells */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -145,6 +146,35 @@
 				C817F16E284609D400201297 /* GettingCurrency.swift */,
 			);
 			path = "Network Managers";
+			sourceTree = "<group>";
+		};
+		C8E8F3F9285F0559006AD7E5 /* Observing Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C8E8F3ED284C0D2D006AD7E5 /* ContainerViewController.swift */,
+				C8E8F3E9284C0BD5006AD7E5 /* BaseCurrencyTableViewController.swift */,
+				C817F164283D6E4400201297 /* CurrencyTableViewController.swift */,
+				C817F16A284607E500201297 /* SelectingCurrencyViewController.swift */,
+			);
+			path = "Observing Controllers";
+			sourceTree = "<group>";
+		};
+		C8E8F3FA285F0575006AD7E5 /* Converting Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C8E8F3F7285F053D006AD7E5 /* ConverterViewController.swift */,
+			);
+			path = "Converting Controllers";
+			sourceTree = "<group>";
+		};
+		C8E8F3FB285F058F006AD7E5 /* Observing Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C817F166283FE43100201297 /* CurrencyTableViewCell.swift */,
+				C817F17028460ABC00201297 /* SelectingCurrencyTableViewCell.swift */,
+				C8E8F3EB284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift */,
+			);
+			path = "Observing Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,8 +296,10 @@
 				C817F165283D6E4400201297 /* CurrencyTableViewController.swift in Sources */,
 				C8E8F3F0285C76A4006AD7E5 /* CellsProtocol.swift in Sources */,
 				C8E8F3EE284C0D2D006AD7E5 /* ContainerViewController.swift in Sources */,
+				C8E8F3F8285F053D006AD7E5 /* ConverterViewController.swift in Sources */,
 				C8E8F3EC284C0CA2006AD7E5 /* BaseCurrencyTableViewCell.swift in Sources */,
 				C817F17128460ABC00201297 /* SelectingCurrencyTableViewCell.swift in Sources */,
+				C8E8F3F4285DBE4E006AD7E5 /* MainTabBarViewController.swift in Sources */,
 				C838EAF4283D6D560023728A /* AppDelegate.swift in Sources */,
 				C817F16F284609D400201297 /* GettingCurrency.swift in Sources */,
 				C817F16B284607E500201297 /* SelectingCurrencyViewController.swift in Sources */,

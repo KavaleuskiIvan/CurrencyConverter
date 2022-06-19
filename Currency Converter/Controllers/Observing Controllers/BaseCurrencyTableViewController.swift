@@ -67,7 +67,7 @@ class BaseCurrencyTableViewController: UIViewController {
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         tableView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -view.frame.width/5).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(BaseCurrencyTableViewCell.self, forCellReuseIdentifier: BaseCurrencyTableViewCell.reuseIdentifier)

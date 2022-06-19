@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
 //        let viewController = CurrencyTableViewController()
-        let viewController = ContainerViewController()
+//        let viewController = ContainerViewController()
+        let viewController = MainTabBarViewController()
 //        let navViewController = UINavigationController(rootViewController: viewController)
 //        window.rootViewController = navViewController
         window.rootViewController = viewController
