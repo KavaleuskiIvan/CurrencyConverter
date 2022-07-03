@@ -1,4 +1,5 @@
 # CurrencyConverter
+This is an application where you can track exchange rates.
 
 You can select your favorite currencies (by swipe to the left), which will be displayed on the main screen (if nothing is selected, all currencies will be displayed). If you swipe to the right, you can select the base currency.
 
